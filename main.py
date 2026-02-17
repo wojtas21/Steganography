@@ -13,3 +13,36 @@ def binary_to_text(binary):
     # and join everything back into the original text
     chars = [binary[i:i+8] for i in range(0,len(binary), 8)]
     return ''.join(chr(int(c, 2)) for c in chars)
+
+def encode(image_path, message, output_path):
+    image = Image.open(image_path)
+    pixels = list(image.getdata())
+
+    message += DELIMITER
+    binary_message = text_to_binary(message)
+
+    if len(binary) > len(pixels) * 3:
+        raise ValueError("The message is too long for this image!")
+    
+    new_pixels = []
+    msg_index = 0
+    
+    for pixel in pixels:
+        r, g, b = pixel
+
+        if msg_index < len(binary_msg):
+            r = (r & ~1) | int(binary_msg[msg_index])
+            msg_index += 1
+        if msg_index < len(binary_msg):
+            g = (g & ~1) | int(binary_msg[msg_index])
+            msg_index += 1
+        if msg_index < len(binary_msg):
+            b = (b & ~1) | int(binary_msg[msg_index])
+            msg_index += 1
+
+
+        new_pixels.append((r, g, b))
+
+    image.putdata(new_pixels)
+    image.save(output_path)
+    print("The message has been encoded successfully!")
