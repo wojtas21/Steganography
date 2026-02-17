@@ -27,7 +27,6 @@ Follow these steps to set up the project on your local machine:
     git clone https://github.com/wojtas21/Steganography.git
     cd steganography
     ```
-    *(Assuming your project is in a Git repository. If not, navigate to your project directory.)*
 
 2.  **Create a virtual environment:**
     It's recommended to use a virtual environment to manage project dependencies.
