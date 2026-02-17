@@ -200,7 +200,7 @@ def decode_action():
     try:
         text = decode(img, password)
         if text:
-            messagebox.showinfo("Hidden message:", text)
+            messagebox.showinfo("Your hidden message:", text)
         else:
             messagebox.showwarning("Result", "No hidden message found.")
     except Exception as e:
